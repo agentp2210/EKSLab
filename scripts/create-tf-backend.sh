@@ -1,8 +1,8 @@
 #!/bin/bash
 echo $(dirname "$0")
 
-read -p "AWS_ACCESS_KEY_ID: " $key_id
-read -p "AWS_SECRET_ACCESS_KEY: " $secret
+read -p "AWS_ACCESS_KEY_ID: " key_id
+read -p "AWS_SECRET_ACCESS_KEY: " secret
 
 region=us-east-1
 # log in
