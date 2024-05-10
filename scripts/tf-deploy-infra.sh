@@ -7,6 +7,7 @@ terraform plan -out eks.tfplan
 terraform apply eks.tfplan
 
 region=us-east-1
-cluster_name=$(terraform output -raw cluster_name)
 
-aws eks update-kubeconfig --region $region --name $cluster_name
+aws eks --region $(terraform output -raw region) update-kubeconfig \
+    --name $(terraform output -raw cluster_name)
+
