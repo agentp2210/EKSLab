@@ -41,5 +41,5 @@ variable "private_subnets_count" {
 }
 
 variable "ssh_public_key" {
-  default = "../sshkey/id_rsa.pub"
+  default = "./sshkey/id_rsa.pub"
 }
