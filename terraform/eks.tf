@@ -72,8 +72,13 @@ module "irsa-ebs-csi" {
 }
 
 
+resource "random_integer" "ecr" {
+  min = 111111
+  max = 500000
+}
+
 resource "aws_ecr_repository" "ecr" {
-  name                 = "myecr${random_string.suffix.result}"
+  name                 = "myecr${random_integer.ecr.result}"
 
   image_scanning_configuration {
     scan_on_push = true
