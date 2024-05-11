@@ -28,10 +28,24 @@ table=$(aws dynamodb list-tables --query "TableNames" --output text)
 
 # Use the remote backend in the main configuration
 cd ../terraform
+
+#Remove old TF Backend if exist
 if test -d .terraform; then
     rm -rf .terraform
 fi
 
+old_tfstate=$(ls *.tfstate*)
+for f in ${old_tfstate[@]}; do
+    if [ -f $f ]; then
+        rm $f
+    fi
+done
+
+if [ -f '.terraform.lock.hcl' ]; then
+    rm '.terraform.lock.hcl'
+fi
+
+# init new backend
 terraform init \
     -backend-config="bucket=$bucket" \
     -backend-config="key=terraform.tfstate" \
