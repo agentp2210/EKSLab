@@ -71,3 +71,11 @@ module "irsa-ebs-csi" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
 }
 
+
+resource "aws_ecr_repository" "ecr" {
+  name                 = "myecr${random_string.suffix.result}"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
