@@ -1,5 +1,6 @@
 #!/bin/bash
-echo $(dirname "$0")
+echo "$(dirname "$0")"
+set -x
 
 read -p "AWS_ACCESS_KEY_ID: " key_id
 read -p "AWS_SECRET_ACCESS_KEY: " secret
