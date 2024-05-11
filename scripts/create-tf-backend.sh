@@ -2,14 +2,9 @@
 cd "$(dirname "$0")"
 set -x
 
-read -p "AWS_ACCESS_KEY_ID: " key_id
-read -p "AWS_SECRET_ACCESS_KEY: " secret
+aws sts get-caller-identity
 
 region=us-east-1
-# log in
-export AWS_ACCESS_KEY_ID=$key_id
-export AWS_SECRET_ACCESS_KEY=$secret
-export AWS_DEFAULT_REGION=$region
 
 # Create S3 bucket for TF Backend
 aws s3api create-bucket \
