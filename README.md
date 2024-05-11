@@ -2,3 +2,6 @@
 
 # Create TF backend and init
 ./scripts/create-tf-backend.sh
+
+# Create EKS with TF
+./scripts/tf-deploy-infra.sh
