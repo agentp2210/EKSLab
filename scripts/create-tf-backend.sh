@@ -29,7 +29,7 @@ table=$(aws dynamodb list-tables --query "TableNames" --output text)
 # Use the remote backend in the main configuration
 cd ../terraform
 if test -d .terraform; then
-    rm -r .terraform
+    rm -rf .terraform
 fi
 
 terraform init \
