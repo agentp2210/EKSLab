@@ -14,11 +14,11 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.29"
 
-  vpc_id                         = module.vpc.vpc_id
-  subnet_ids                     = module.vpc.private_subnets
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
 
-  enable_cluster_creator_admin_permissions = true     #Add current user as an admin. Without this kubectl will not work
-  cluster_endpoint_public_access = true
+  enable_cluster_creator_admin_permissions = true #Add current user as an admin. Without this kubectl will not work
+  cluster_endpoint_public_access           = true
 
   cluster_addons = {
     aws-ebs-csi-driver = {
@@ -64,7 +64,7 @@ module "eks" {
 
 data "aws_iam_policy" "ecr_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess"
-}    
+}
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
 data "aws_iam_policy" "ebs_csi_policy" {
@@ -89,7 +89,7 @@ resource "random_integer" "ecr" {
 }
 
 resource "aws_ecr_repository" "ecr" {
-  name                 = "myecr${random_integer.ecr.result}"
+  name = "myecr${random_integer.ecr.result}"
 
   image_scanning_configuration {
     scan_on_push = true
