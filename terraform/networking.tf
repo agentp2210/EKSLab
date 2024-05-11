@@ -9,8 +9,8 @@ module "vpc" {
   public_subnets  = [for i in range(var.public_subnets_count) : cidrsubnet(var.vpc_cidr_block, 8, i)]
   private_subnets = [for i in range(var.private_subnets_count) : cidrsubnet(var.vpc_cidr_block, 8, i + var.public_subnets_count)]
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway   = true
+  single_nat_gateway   = true
   enable_dns_hostnames = true
   # one_nat_gateway_per_az = false
 
@@ -32,7 +32,7 @@ resource "aws_security_group" "allow_tls" {
   description = "Allow TLS inbound traffic"
   vpc_id      = module.vpc.vpc_id
   dynamic "ingress" {
-    for_each = [22,80,8080,443]
+    for_each = [22, 80, 8080, 443]
     iterator = port
     content {
       description = "TLS from VPC"
