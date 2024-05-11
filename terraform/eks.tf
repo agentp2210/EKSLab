@@ -17,9 +17,6 @@ module "eks" {
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
 
-  iam_role_additional_policies = {
-    policy_arn = data.aws_iam_policy.ecr_policy.arn
-  }
   enable_cluster_creator_admin_permissions = true     #Add current user as an admin. Without this kubectl will not work
   cluster_endpoint_public_access = true
 
@@ -31,12 +28,15 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
-
   }
 
   eks_managed_node_groups = {
     one = {
       name = "node-group-1"
+
+      iam_role_additional_policies = {
+        policy_arn = data.aws_iam_policy.ecr_policy.arn
+      }
 
       instance_types = ["t3.small"]
 
@@ -47,6 +47,10 @@ module "eks" {
 
     two = {
       name = "node-group-2"
+
+      iam_role_additional_policies = {
+        policy_arn = data.aws_iam_policy.ecr_policy.arn
+      }
 
       instance_types = ["t3.small"]
 
