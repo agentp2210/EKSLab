@@ -34,12 +34,14 @@ if test -d .terraform; then
     rm -rf .terraform
 fi
 
-old_tfstate=$(ls *.tfstate*)
-for f in ${old_tfstate[@]}; do
-    if [ -f $f ]; then
-        rm $f
-    fi
-done
+old_tfstate=$(ls | grep *.tfstate*)
+if [[ ! -z $old_tfstate ]]; then
+    for f in ${old_tfstate[@]}; do
+        if [ -f $f ]; then
+            rm $f
+        fi
+    done
+fi
 
 if [ -f '.terraform.lock.hcl' ]; then
     rm '.terraform.lock.hcl'
