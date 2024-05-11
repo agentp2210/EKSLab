@@ -16,12 +16,15 @@ aws s3api create-bucket \
     --region $region
 
 # DynamoDB
-aws dynamodb create-table \
-    --table-name TFBackendDynamoDBTable \
-    --attribute-definitions AttributeName=LockID,AttributeType=S \
-    --key-schema AttributeName=LockID,KeyType=HASH \
-    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-    --tags Key=Project,Value=Terraform
+table=$(aws dynamodb list-tables --query "TableNames" --output text)
+if [ -z $table ]; then
+    aws dynamodb create-table \
+        --table-name TFBackendDynamoDBTable \
+        --attribute-definitions AttributeName=LockID,AttributeType=S \
+        --key-schema AttributeName=LockID,KeyType=HASH \
+        --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+        --tags Key=Project,Value=Terraform
+fi
 
 bucket=$(aws s3api list-buckets --query "Buckets[].Name" --output text)
 table=$(aws dynamodb list-tables --query "TableNames" --output text)
