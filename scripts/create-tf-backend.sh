@@ -28,7 +28,9 @@ table=$(aws dynamodb list-tables --query "TableNames" --output text)
 
 # Use the remote backend in the main configuration
 cd ../terraform
-rm -r .terraform
+if test -d .terraform; then
+    rm -r .terraform
+fi
 
 terraform init \
     -backend-config="bucket=$bucket" \
