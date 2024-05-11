@@ -17,6 +17,10 @@ module "eks" {
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
 
+  iam_role_additional_policies = {
+    data.aws_iam_policy.ecr_policy
+  }
+
   enable_cluster_creator_admin_permissions = true
   cluster_endpoint_public_access = true
 
@@ -53,7 +57,11 @@ module "eks" {
     }
   }
 }
-    
+
+
+data "aws_iam_policy" "ecr_policy" {
+  arn = "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess"
+}    
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
 data "aws_iam_policy" "ebs_csi_policy" {
