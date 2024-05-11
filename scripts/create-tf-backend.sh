@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "$(dirname "$0")"
+cd "$(dirname "$0")"
 set -x
 
 read -p "AWS_ACCESS_KEY_ID: " key_id
