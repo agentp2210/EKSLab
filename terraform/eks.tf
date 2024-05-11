@@ -17,9 +17,10 @@ module "eks" {
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
 
-  iam_role_additional_policies = [data.aws_iam_policy.ecr_policy.arn]
-
-  enable_cluster_creator_admin_permissions = true
+  iam_role_additional_policies = {
+    policy_arn = data.aws_iam_policy.ecr_policy.arn
+  }
+  enable_cluster_creator_admin_permissions = true     #Add current user as an admin. Without this kubectl will not work
   cluster_endpoint_public_access = true
 
   cluster_addons = {
