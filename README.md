@@ -1,5 +1,6 @@
 Ref: https://github.com/hashicorp/learn-terraform-provision-eks-cluster/blob/main/main.tf
 Ref: https://github.com/rivethead42/nodejs-microservices-deploying-scaling/tree/main
+Ref: https://app.pluralsight.com/library/courses/nodejs-microservices-deploying-scaling/table-of-contents
 
 *This lab is to create an EKS cluster and deploy a Nodejs app to it*
 

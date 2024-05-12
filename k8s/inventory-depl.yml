@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bevco-inventory
+  template:
+    metadata:
+      labels:
+        app: bevco-inventory
+    spec:
+      containers:
+        - name: bevco-inventory
+          image: 211125697579.dkr.ecr.us-east-1.amazonaws.com/inventory:latest
+          env:
+          - name: DATABASE
+            value: 'mongodb://inventory-mongo-srv:27017/inventory'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bevco-inventory-srv
+spec:
+  selector:
+    app: bevco-inventory
+  ports:
+    - name: bevco-inventory
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
