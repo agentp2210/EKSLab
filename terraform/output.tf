@@ -34,6 +34,12 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
+# output "repository_urls" {
+#   value = resource.aws_ecr_repository.ecr["api-gateway"]
+# }
+
 output "repository_urls" {
-  value = resource.aws_ecr_repository.ecr["api-gateway"]
+  value = [
+    for repo in aws_ecr_repository.ecr : aws_ecr_repository.ecr[repo].url
+  ]
 }
