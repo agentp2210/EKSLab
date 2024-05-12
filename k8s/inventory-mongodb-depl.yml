@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: inventory-mongo-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc
+  resources:
+    requests:
+      storage: 5Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,6 +27,13 @@ spec:
       containers:
         - name: inventory-mongo
           image: mongo
+          volumeMounts:
+            - name: inventory-mongo-storage
+              mountPath: /data/db
+      volumes:
+        - name: inventory-mongo-storage
+          persistentVolumeClaim:
+            claimName: inventory-mongo-ebs-pvc
 ---
 apiVersion: v1
 kind: Service
