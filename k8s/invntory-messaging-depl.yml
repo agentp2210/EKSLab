@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bevco-inventory-messaging-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bevco-inventory-messaging
+  template:
+    metadata:
+      labels:
+        app: bevco-inventory-messaging
+    spec:
+      containers:
+        - name: bevco-inventory-messaging
+          image: 211125697579.dkr.ecr.us-east-1.amazonaws.com/inventory-messaging:latest:latest
+          env:
+          - name: DATABASE
+            value: 'mongodb://inventory-mongo-srv:27017/inventory'
+          - name: RABBITMQ_URL
+            value: 'rabbitmq-srv'
+          - name: RABBITMQ_INVENTORY_QUEUE
+            value: UpdateStock

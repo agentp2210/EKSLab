@@ -49,5 +49,14 @@ kubectl get all -n rabbitmq-system
 ```
 
 ```
+cd k8s/
 kubectl apply -f rabbitmq.yml
+```
+
+**Deploy microservices**
+```
+kubectl apply -f inventory-depl.yml
+kubectl apply -f inventory-depl.yml
+kubectl apply -f inventory-depl.yml
+kubectl apply -f inventory-depl.yml
 ```
