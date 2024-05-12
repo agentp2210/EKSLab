@@ -9,16 +9,24 @@ Container and pod are ephemeral so we will add a persistent storage to it
 
 # Instruction
 **Log in**
+```
 aws configure
+```
 
 **Create TF backend and init**
+```
 ./scripts/create-tf-backend.sh
+```
 
 **Create EKS with TF**
+```
 ./scripts/tf-deploy-infra.sh
+```
 
 **build and push images to ECR**
+```
 ./scripts/push-to-ecr.sh
+```
 
 **Deploy MongoDB with a persistent storage**
 *Note*: We need an "external provisioner" to get our EBS working.
@@ -30,3 +38,15 @@ Your cluster has an OpenID Connect (OIDC) issuer URL associated with it. To use 
 *To associate IAM OIDC provider to the EKS cluster, use 1 of below 2 ways:*
 1. eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 2. specify in terraform code in cluster_addon section
+
+**Deploy RabitMQ**
+Because we are dealing with microservices and we want to have communication going back and forth between the microservices, we need RabitMQ.
+
+```
+kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
+kubectl get all -n rabbitmq-system
+```
+
+```
+kubectl apply -f rabbitmq.yml
+```
