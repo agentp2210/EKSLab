@@ -22,3 +22,13 @@ spec:
             value: 'rabbitmq-srv'
           - name: RABBITMQ_INVENTORY_QUEUE
             value: UpdateStock
+          - name: RABBITMQ_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-srv-default-user
+                key: username
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-srv-default-user
+                key: password
