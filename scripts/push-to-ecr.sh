@@ -12,3 +12,8 @@ if [[ ! -z "$existing_images" ]]; then
         docker rmi $i
     done
 fi
+
+apigw_repo=$(terraform output -raw apigw_repo)
+inventory_repo=$(terraform output -raw inventory_repo)
+apigw_repo=$(terraform output -raw messaging_repo)
+apigw_repo=$(terraform output -raw restock_repo)
