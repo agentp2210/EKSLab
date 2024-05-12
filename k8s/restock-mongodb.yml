@@ -1,0 +1,49 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: restock-mongo-pvc
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restock-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restock-mongo
+  template:
+    metadata:
+      labels:
+        app: restock-mongo
+    spec:
+      containers:
+        - name: restock-mongo
+          image: mongo
+          volumeMounts:
+             - name: restock-mongo-storage
+               mountPath: /data/db
+      volumes:
+        - name: restock-mongo-storage
+          persistentVolumeClaim:
+            claimName: restock-mongo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restock-mongo-srv
+spec:
+  selector:
+    app: restock-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

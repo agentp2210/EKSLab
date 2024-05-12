@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bevco-restock-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bevco-restock
+  template:
+    metadata:
+      labels:
+        app: bevco-restock
+    spec:
+      containers:
+        - name: bevco-restock
+          image: <image_repository>:latest
+          env:
+          - name: DATABASE
+            value: 'mongodb://restock-mongo-srv:27017/restock'
+          - name: RABBITMQ_URL
+            value: 'rabbitmq-srv'
+          - name: RABBITMQ_INVENTORY_QUEUE
+            value: UpdateStock
+          - name: RABBITMQ_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-srv-default-user
+                key: username
+          - name: RABBITMC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-srv-default-user
+                key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bevco-restock-srv
+spec:
+  selector:
+    app: bevco-restock
+  ports:
+    - name: bevco-restock
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

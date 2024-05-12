@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bevco-api-gateway-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: bevco-api
+          image: <image_repository>:latest
+          env:
+          - name: INVENTORY_URL
+            value: 'http://bevco-inventory-srv:3000'
+          - name: RESTOCK_URL
+            value: 'http://bevco-restock-srv:3000'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bevco-api-srv
+spec:
+  selector:
+    app: api-gateway
+  ports:
+    - name: api-gateway
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
