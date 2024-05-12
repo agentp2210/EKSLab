@@ -34,6 +34,8 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
-output "repository_url" {
-  value = aws_ecr_repository.ecr.repository_url
+output "repository_urls" {
+  value = [
+    for repo in aws_ecr_repository.ecr : ect.repository_url
+  ]
 }

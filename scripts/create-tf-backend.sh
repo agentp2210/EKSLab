@@ -19,7 +19,7 @@ if [ -z $table ]; then
         --attribute-definitions AttributeName=LockID,AttributeType=S \
         --key-schema AttributeName=LockID,KeyType=HASH \
         --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-        --tags Key=Project,Value=Terraform
+        --tags Key=Project,Value=Terraform >/dev/null
 fi
 
 bucket=$(aws s3api list-buckets --query "Buckets[].Name" --output text)

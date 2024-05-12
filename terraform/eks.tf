@@ -83,13 +83,14 @@ module "irsa-ebs-csi" {
 }
 
 
-resource "random_integer" "ecr" {
-  min = 111111
-  max = 500000
-}
+# resource "random_integer" "ecr" {
+#   min = 111111
+#   max = 500000
+# }
 
 resource "aws_ecr_repository" "ecr" {
-  name = "myecr${random_integer.ecr.result}"
+  for_each = toset(var.ecr_names)
+  name = each.value
 
   image_scanning_configuration {
     scan_on_push = true

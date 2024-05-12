@@ -43,3 +43,8 @@ variable "private_subnets_count" {
 variable "ssh_public_key" {
   default = "./sshkey/id_rsa.pub"
 }
+
+variable "ecr_names" {
+  type    = list(string)
+  default = ["api-gateway", "inventory", "inventory-messaging", "restock"]
+}
