@@ -35,5 +35,5 @@ output "cluster_name" {
 }
 
 output "repository_urls" {
-  value = resource.aws_ecr_repository.ecr
+  value = resource.aws_ecr_repository.ecr[api-gateway]
 }
