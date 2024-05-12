@@ -27,7 +27,7 @@ spec:
               secretKeyRef:
                 name: rabbitmq-srv-default-user
                 key: username
-          - name: RABBITMC_PASSWORD
+          - name: RABBITMQ_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: rabbitmq-srv-default-user
