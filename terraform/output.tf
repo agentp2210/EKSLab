@@ -36,6 +36,6 @@ output "cluster_name" {
 
 output "repository_urls" {
   value = [
-    for repo in resource.aws_ecr_repository.ecr : ecr.repository_url
+    for repo in resource.aws_ecr_repository.ecr : aws_ecr_repository.ecr.repository_url
   ]
 }
