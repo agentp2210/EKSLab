@@ -41,17 +41,17 @@ output "repository_urls" {
 }
 
 output "inventory_repo" {
-  value = aws_ecr_repository.ecr["inventory"]
+  value = aws_ecr_repository.ecr["inventory"].repository_url
 }
 
 output "apigw_repo" {
-  value = aws_ecr_repository.ecr["api-gateway"]
+  value = aws_ecr_repository.ecr["api-gateway"].repository_url
 }
 
 output "messaging_repo" {
-  value = aws_ecr_repository.ecr["inventory-messaging"]
+  value = aws_ecr_repository.ecr["inventory-messaging"].repository_url
 }
 
 output "restock_repo" {
-  value = aws_ecr_repository.ecr["restock"]
+  value = aws_ecr_repository.ecr["restock"].repository_url
 }
