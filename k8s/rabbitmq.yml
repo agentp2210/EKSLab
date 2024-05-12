@@ -5,4 +5,4 @@ metadata:
 spec:
   persistence:
     storageClassName: ebs-sc
-    storage: "50Gi"
+    storage: "10Gi"
