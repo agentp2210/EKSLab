@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bevco-restock
-          image: <image_repository>:latest
+          image: 211125697579.dkr.ecr.us-east-1.amazonaws.com/restock:latest
           env:
           - name: DATABASE
             value: 'mongodb://restock-mongo-srv:27017/restock'

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bevco-api
-          image: <image_repository>:latest
+          image: 211125697579.dkr.ecr.us-east-1.amazonaws.com/api-gateway:latest
           env:
           - name: INVENTORY_URL
             value: 'http://bevco-inventory-srv:3000'
