@@ -10,7 +10,7 @@ aws ecr get-login-password --region $region | docker login --username AWS --pass
 # Remove image if exist
 existing_images=$(docker images | grep amazonaws.com | awk '{print $1}')
 if [[ ! -z "$existing_images" ]]; then
-    for $i in $$existing_images; do
+    for i in $existing_images; do
         docker rmi $i
     done
 fi

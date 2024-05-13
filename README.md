@@ -30,6 +30,7 @@ aws configure
 ```
 
 **Deploy MongoDB with a persistent storage**
+
 *Note*: We need an "external provisioner" to get our EBS working.
 To get the provisioner working, we have to tell our cluster that we want to asoociate an IAM OIDC provider which will alows us to install everything properly
 
@@ -41,6 +42,7 @@ Your cluster has an OpenID Connect (OIDC) issuer URL associated with it. To use 
 2. specify in terraform code in cluster_addon section
 
 **Deploy RabitMQ**
+
 Because we are dealing with microservices and we want to have communication going back and forth between the microservices, we need RabitMQ.
 
 ```
@@ -55,8 +57,32 @@ kubectl apply -f rabbitmq.yml
 
 **Deploy microservices**
 ```
+cd k8s
+kubectl apply -f storageclass.yml
+kubectl apply -f rabbitmq.yml
+kubectl apply -f inventory-mongodb-depl.yml
+kubectl apply -f inventory-hpa.yml
 kubectl apply -f inventory-depl.yml
-kubectl apply -f inventory-depl.yml
-kubectl apply -f inventory-depl.yml
-kubectl apply -f inventory-depl.yml
+kubectl apply -f inventory-messaging-depl.yml
+kubectl apply -f restock-mongodb.yml
+kubectl apply -f restock-depl.yml
+kubectl apply -f api-gateway-depl.yml
+```
+
+**Deploy metric server (to use HPA)**
+```kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml```
+
+*Check current CPU, RAM used by nodes and pods*
+```
+kubectl top nodes
+kubectl top pods
+```
+
+**Deploy Horizontal Auto Scaling**
+```kubectl apply -f inventory-hpa.yml```
+
+**Load test and see if the HPA is working**
+```
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://bevco-inventory-srv:3000/api/inventory; done"
+kubectl get hpa inventory-depl --watch
 ```

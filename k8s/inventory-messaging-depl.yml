@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bevco-inventory-messaging
-          image: 211125697579.dkr.ecr.us-east-1.amazonaws.com/inventory-messaging:latest
+          image: 767397657417.dkr.ecr.us-east-1.amazonaws.com/inventory-messaging:latest
           env:
           - name: DATABASE
             value: 'mongodb://inventory-mongo-srv:27017/inventory'
