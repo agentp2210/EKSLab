@@ -17,11 +17,11 @@ spec:
           image: 767397657417.dkr.ecr.us-east-1.amazonaws.com/inventory:latest
           readinessProbe:
             httpGet:
-              path: /api/inventory/heath
+              path: /api/inventory/health
               port: 3000
           livenessProbe:
             httpGet:
-              path: /api/inventory/heath
+              path: /api/inventory/health
               port: 3000
           env:
           - name: DATABASE
