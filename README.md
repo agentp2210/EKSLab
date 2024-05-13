@@ -48,6 +48,7 @@ Because we are dealing with microservices and we want to have communication goin
 ```
 kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
 kubectl get all -n rabbitmq-system
+kubectl apply -f rabbitmq.yml
 ```
 
 ```
@@ -59,9 +60,7 @@ kubectl apply -f rabbitmq.yml
 ```
 cd k8s
 kubectl apply -f storageclass.yml
-kubectl apply -f rabbitmq.yml
 kubectl apply -f inventory-mongodb-depl.yml
-kubectl apply -f inventory-hpa.yml
 kubectl apply -f inventory-depl.yml
 kubectl apply -f inventory-messaging-depl.yml
 kubectl apply -f restock-mongodb.yml
@@ -70,7 +69,9 @@ kubectl apply -f api-gateway-depl.yml
 ```
 
 **Deploy metric server (to use HPA)**
-```kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml```
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
 
 *Check current CPU, RAM used by nodes and pods*
 ```
@@ -79,6 +80,7 @@ kubectl top pods
 ```
 
 **Deploy Horizontal Auto Scaling**
+
 ```kubectl apply -f inventory-hpa.yml```
 
 **Load test and see if the HPA is working**
